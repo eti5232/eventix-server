@@ -1,3 +1,5 @@
+using Eventix.Application.Interfaces;
+using Eventix.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +17,11 @@ public static class DependencyInjection
                 "Connection string 'Default' is missing. Set it with user-secrets or an environment variable.");
 
         services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+
+        // Scoped, like the DbContext they depend on: one instance per HTTP request.
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IEquipmentRepository, EquipmentRepository>();
 
         return services;
     }
