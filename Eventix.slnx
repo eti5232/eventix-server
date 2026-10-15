@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="Eventix.API/Eventix.API.csproj" />
+  <Project Path="Eventix.Application/Eventix.Application.csproj" />
+  <Project Path="Eventix.Domain/Eventix.Domain.csproj" />
+  <Project Path="Eventix.Infrastructure/Eventix.Infrastructure.csproj" />
+  <Project Path="Eventix.Tests/Eventix.Tests.csproj" />
+</Solution>

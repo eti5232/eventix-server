@@ -1,0 +1,6 @@
+@Eventix.API_HostAddress = http://localhost:5139
+
+GET {{Eventix.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
