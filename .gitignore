@@ -487,6 +487,9 @@ $RECYCLE.BIN/
 secrets.json
 appsettings.*.local.json
 
+# Runtime log files (NLog)
+logs/
+
 # Teacher requirements (local only)
 docs/
 CLAUDE.md

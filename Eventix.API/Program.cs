@@ -1,25 +1,62 @@
 using System.Text.Json.Serialization;
-using Eventix.API.Filters;
+using Eventix.API.Errors;
+using Eventix.API.Middleware;
 using Eventix.Application;
 using Eventix.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
+using NLog.Web;
 
-var builder = WebApplication.CreateBuilder(args);
+// Logger available before the host exists, so a startup failure can still be written to the NLog targets.
+var startupLogger = NLog.LogManager.GetCurrentClassLogger();
 
-// Add services to the container.
+WebApplication app;
+try
+{
+    var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers(options => options.Filters.Add<TemporaryExceptionFilter>())
-    .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddApplication();
-builder.Services.AddInfrastructure(builder.Configuration);
+    // NLog replaces the default logging providers; code keeps using the standard ILogger.
+    builder.Logging.ClearProviders();
+    builder.Host.UseNLog();
 
-var app = builder.Build();
+    // Add services to the container.
 
-await app.Services.MigrateDatabaseAsync();
+    builder.Services.AddControllers()
+        .AddJsonOptions(options => options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()))
+        .ConfigureApiBehaviorOptions(options =>
+        {
+            // Validation errors (400) get the same uniform error format as every other error.
+            options.InvalidModelStateResponseFactory = actionContext =>
+                new BadRequestObjectResult(ErrorResponseFactory.CreateValidation(actionContext.HttpContext, actionContext.ModelState))
+                {
+                    ContentTypes = { ErrorResponseFactory.ContentType }
+                };
+        });
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+    builder.Services.AddApplication();
+    builder.Services.AddInfrastructure(builder.Configuration);
 
-// Configure the HTTP request pipeline.
+    app = builder.Build();
+
+    await app.Services.MigrateDatabaseAsync();
+}
+// HostAbortedException is how the EF tools (dotnet ef) stop the app after building the host; it is not a failure.
+catch (Exception exception) when (exception is not HostAbortedException)
+{
+    // Startup failed before the server could accept requests (bad configuration, no database, failed migration).
+    // Log it once with the full exception, flush the log, and rethrow so the process still stops with an error.
+    startupLogger.Fatal(exception, "The application failed to start.");
+    NLog.LogManager.Shutdown();
+    throw;
+}
+
+// Configure the HTTP request pipeline. The order matters:
+// errors are caught first, and the correlation id must exist before anything is logged.
+app.UseMiddleware<ExceptionHandlingMiddleware>();
+app.UseMiddleware<CorrelationIdMiddleware>();
+app.UseMiddleware<RequestLoggingMiddleware>();
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

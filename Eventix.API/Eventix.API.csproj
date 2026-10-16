@@ -22,6 +22,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Eventix.Application\Eventix.Application.csproj" />
     <ProjectReference Include="..\Eventix.Infrastructure\Eventix.Infrastructure.csproj" />
   </ItemGroup>
