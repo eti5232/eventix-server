@@ -1,5 +1,7 @@
 using Eventix.Application.DTOs.Categories;
 using Eventix.Application.Interfaces;
+using Eventix.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eventix.API.Controllers;
@@ -30,7 +32,10 @@ public class CategoriesController : ControllerBase
         Ok(await _categories.GetByIdAsync(id, cancellationToken));
 
     /// <summary>Creates a category.</summary>
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(CategoryResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status409Conflict)]
@@ -41,7 +46,10 @@ public class CategoriesController : ControllerBase
     }
 
     /// <summary>Updates a category.</summary>
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(CategoryResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

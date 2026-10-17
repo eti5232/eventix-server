@@ -1,5 +1,6 @@
 using System.Text.Json.Serialization;
 using Eventix.API.Errors;
+using Eventix.API.Extensions;
 using Eventix.API.Middleware;
 using Eventix.Application;
 using Eventix.Infrastructure;
@@ -33,13 +34,15 @@ try
         });
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
     builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
+    builder.Services.AddSwaggerWithJwt();
+    builder.Services.AddJwtAuthentication(builder.Configuration);
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
 
     app = builder.Build();
 
     await app.Services.MigrateDatabaseAsync();
+    await app.Services.SeedDatabaseAsync();
 }
 // HostAbortedException is how the EF tools (dotnet ef) stop the app after building the host; it is not a failure.
 catch (Exception exception) when (exception is not HostAbortedException)
@@ -65,6 +68,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+// Authentication (who are you?) must come before authorization (what may you do?).
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

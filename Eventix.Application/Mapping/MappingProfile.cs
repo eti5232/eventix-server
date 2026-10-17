@@ -1,4 +1,5 @@
 using AutoMapper;
+using Eventix.Application.DTOs.Auth;
 using Eventix.Application.DTOs.Categories;
 using Eventix.Application.DTOs.Equipment;
 using Eventix.Domain.Entities;
@@ -18,5 +19,8 @@ public class MappingProfile : Profile
         CreateMap<Equipment, EquipmentResponseDto>();
         CreateMap<EquipmentRequestDto, Equipment>()
             .ForMember(e => e.Name, o => o.MapFrom(r => r.Name.Trim()));
+
+        // The enum Role becomes its name ("Admin"/"Producer"); the password hash is not part of the DTO.
+        CreateMap<User, UserResponseDto>();
     }
 }

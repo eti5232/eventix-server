@@ -1,6 +1,8 @@
 using Eventix.Application.Common;
 using Eventix.Application.DTOs.Equipment;
 using Eventix.Application.Interfaces;
+using Eventix.Domain.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Eventix.API.Controllers;
@@ -32,7 +34,10 @@ public class EquipmentController : ControllerBase
         Ok(await _equipment.GetByIdAsync(id, cancellationToken));
 
     /// <summary>Creates an equipment item.</summary>
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(EquipmentResponseDto), StatusCodes.Status201Created)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -43,7 +48,10 @@ public class EquipmentController : ControllerBase
     }
 
     /// <summary>Updates an equipment item.</summary>
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpPut("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(typeof(EquipmentResponseDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -52,7 +60,10 @@ public class EquipmentController : ControllerBase
         Ok(await _equipment.UpdateAsync(id, request, cancellationToken));
 
     /// <summary>Soft-deletes an equipment item (it is hidden from the catalog but kept in the database).</summary>
+    [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpDelete("{id:int}")]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> Delete([FromRoute] int id, CancellationToken cancellationToken)

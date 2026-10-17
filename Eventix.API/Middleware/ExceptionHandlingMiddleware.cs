@@ -69,11 +69,7 @@ public class ExceptionHandlingMiddleware
             ? "An unexpected error occurred. Please report the correlation id."
             : exception.Message;
 
-        context.Response.StatusCode = statusCode;
-        await context.Response.WriteAsJsonAsync(
-            ErrorResponseFactory.Create(context, statusCode, detail),
-            options: (System.Text.Json.JsonSerializerOptions?)null,
-            contentType: ErrorResponseFactory.ContentType);
+        await ErrorResponseFactory.WriteAsync(context, statusCode, detail);
     }
 
     /// <summary>The one place that decides which exception means which HTTP status.</summary>

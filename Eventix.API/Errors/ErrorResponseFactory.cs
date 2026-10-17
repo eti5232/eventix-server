@@ -30,6 +30,16 @@ public static class ErrorResponseFactory
         return problem;
     }
 
+    /// <summary>Sets the status code and writes the uniform error body to the response.</summary>
+    public static Task WriteAsync(HttpContext context, int statusCode, string detail)
+    {
+        context.Response.StatusCode = statusCode;
+        return context.Response.WriteAsJsonAsync(
+            Create(context, statusCode, detail),
+            options: (System.Text.Json.JsonSerializerOptions?)null,
+            contentType: ContentType);
+    }
+
     /// <summary>Creates a 400 response that also lists the invalid fields in <c>errors</c>.</summary>
     public static ValidationProblemDetails CreateValidation(HttpContext context, ModelStateDictionary modelState)
     {
