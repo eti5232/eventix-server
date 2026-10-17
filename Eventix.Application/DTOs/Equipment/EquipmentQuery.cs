@@ -6,8 +6,6 @@ namespace Eventix.Application.DTOs.Equipment;
 /// <summary>Filter, sort and paging parameters of the equipment list, bound from the query string.</summary>
 public class EquipmentQuery
 {
-    public const int MaxPageSize = 50;
-
     public int? CategoryId { get; set; }
 
     /// <summary>Case-insensitive text matched against the name and the description.</summary>
@@ -25,6 +23,6 @@ public class EquipmentQuery
     [Range(1, int.MaxValue)]
     public int Page { get; set; } = 1;
 
-    [Range(1, MaxPageSize)]
-    public int PageSize { get; set; } = 10;
+    [Range(1, Paging.MaxPageSize)]
+    public int PageSize { get; set; } = Paging.DefaultPageSize;
 }

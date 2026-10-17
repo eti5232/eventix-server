@@ -70,6 +70,23 @@ public class EquipmentRepository : IEquipmentRepository
         _context.Equipment.Include(e => e.Category)
             .FirstOrDefaultAsync(e => e.Id == id, cancellationToken);
 
+    public async Task<IReadOnlyList<Equipment>> GetActiveByIdsAsync(IReadOnlyCollection<int> ids, CancellationToken cancellationToken) =>
+        await _context.Equipment.AsNoTracking()
+            .Where(e => ids.Contains(e.Id) && e.IsActive)
+            .ToListAsync(cancellationToken);
+
+    public async Task LockForShareAsync(IReadOnlyCollection<int> ids, CancellationToken cancellationToken)
+    {
+        // Ordered by id, so two requests locking several rows always lock them in the same order.
+        var idArray = ids.ToArray();
+        await _context.Database.ExecuteSqlInterpolatedAsync(
+            $"SELECT 1 FROM \"Equipment\" WHERE \"Id\" = ANY({idArray}) ORDER BY \"Id\" FOR SHARE", cancellationToken);
+    }
+
+    public async Task LockForUpdateAsync(int id, CancellationToken cancellationToken) =>
+        await _context.Database.ExecuteSqlInterpolatedAsync(
+            $"SELECT 1 FROM \"Equipment\" WHERE \"Id\" = {id} FOR UPDATE", cancellationToken);
+
     public async Task AddAsync(Equipment equipment, CancellationToken cancellationToken) =>
         await _context.Equipment.AddAsync(equipment, cancellationToken);
 }

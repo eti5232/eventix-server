@@ -1,9 +1,13 @@
+using Eventix.Domain.Common;
 using Eventix.Domain.Enums;
 
 namespace Eventix.Domain.Entities;
 
-/// <summary>A producer's booking of several equipment items for a date range (up to 7 days, inclusive).</summary>
-public class Reservation
+/// <summary>
+/// A producer's booking of several equipment items for a date range (up to 7 days, inclusive).
+/// It carries a concurrency token, so two simultaneous status changes (for example cancel and return) cannot both succeed.
+/// </summary>
+public class Reservation : IVersioned
 {
     public int Id { get; set; }
     public int UserId { get; set; }
@@ -17,6 +21,14 @@ public class Reservation
     public decimal TotalPrice { get; set; }
 
     public DateTime CreatedAtUtc { get; set; }
+
+    /// <summary>
+    /// The day the equipment was actually returned (set when the status becomes Returned). It can be before <see cref="EndDate"/>
+    /// (an early return, which frees the stock from the following day) or after it (a late return).
+    /// </summary>
+    public DateOnly? ReturnedOn { get; set; }
+
+    public Guid Version { get; set; } = Guid.NewGuid();
 
     public ICollection<ReservationItem> Items { get; set; } = new List<ReservationItem>();
 }

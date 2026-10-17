@@ -16,6 +16,9 @@ internal class DailyStockConfiguration : IEntityTypeConfiguration<DailyStock>
         // The optimistic-concurrency token: EF adds the old Version to the UPDATE ... WHERE clause.
         builder.Property(s => s.Version).IsConcurrencyToken();
 
+        // Reserved quantity can never be negative, whatever the code does.
+        builder.ToTable(table => table.HasCheckConstraint("CK_DailyStocks_ReservedQuantity_NonNegative", "\"ReservedQuantity\" >= 0"));
+
         builder.HasIndex(s => new { s.EquipmentId, s.Date })
             .IsUnique()
             .HasDatabaseName(UniqueIndexName);

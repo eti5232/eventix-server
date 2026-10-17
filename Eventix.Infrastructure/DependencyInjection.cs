@@ -27,6 +27,8 @@ public static class DependencyInjection
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IEquipmentRepository, EquipmentRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IDailyStockRepository, DailyStockRepository>();
+        services.AddScoped<IReservationRepository, ReservationRepository>();
         services.AddScoped<DbSeeder>();
 
         // Auth: stateless helpers can be singletons (they hold no DbContext). The JWT settings come from the "Jwt" section;
@@ -35,6 +37,12 @@ public static class DependencyInjection
         services.TryAddSingleton(TimeProvider.System);
         services.AddSingleton<IPasswordHasher, BCryptPasswordHasher>();
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+
+        // "Today" for the business, in the configured time zone. An invalid zone fails at startup.
+        var timeZoneId = configuration["TimeZone"]
+            ?? throw new InvalidOperationException("The setting 'TimeZone' is missing (for example 'Asia/Jerusalem').");
+        var businessTimeZone = TimeZoneInfo.FindSystemTimeZoneById(timeZoneId);
+        services.AddSingleton<IBusinessClock>(provider => new BusinessClock(provider.GetRequiredService<TimeProvider>(), businessTimeZone));
 
         return services;
     }

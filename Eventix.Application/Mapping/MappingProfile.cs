@@ -2,6 +2,7 @@ using AutoMapper;
 using Eventix.Application.DTOs.Auth;
 using Eventix.Application.DTOs.Categories;
 using Eventix.Application.DTOs.Equipment;
+using Eventix.Application.DTOs.Reservations;
 using Eventix.Domain.Entities;
 
 namespace Eventix.Application.Mapping;
@@ -22,5 +23,9 @@ public class MappingProfile : Profile
 
         // The enum Role becomes its name ("Admin"/"Producer"); the password hash is not part of the DTO.
         CreateMap<User, UserResponseDto>();
+
+        // UserFullName and EquipmentName come from AutoMapper's flattening (User.FullName, Equipment.Name); Status becomes its name.
+        CreateMap<Reservation, ReservationResponseDto>();
+        CreateMap<ReservationItem, ReservationItemResponseDto>();
     }
 }

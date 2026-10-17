@@ -106,7 +106,10 @@ namespace Eventix.Infrastructure.Migrations
                         .IsUnique()
                         .HasDatabaseName("IX_DailyStocks_EquipmentId_Date");
 
-                    b.ToTable("DailyStocks");
+                    b.ToTable("DailyStocks", t =>
+                        {
+                            t.HasCheckConstraint("CK_DailyStocks_ReservedQuantity_NonNegative", "\"ReservedQuantity\" >= 0");
+                        });
                 });
 
             modelBuilder.Entity("Eventix.Domain.Entities.Equipment", b =>
@@ -302,6 +305,9 @@ namespace Eventix.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
+                    b.Property<DateOnly?>("ReturnedOn")
+                        .HasColumnType("date");
+
                     b.Property<DateOnly>("StartDate")
                         .HasColumnType("date");
 
@@ -317,11 +323,22 @@ namespace Eventix.Infrastructure.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
 
+                    b.Property<Guid>("Version")
+                        .IsConcurrencyToken()
+                        .HasColumnType("uuid");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Reservations");
+                    b.HasIndex("Status", "EndDate");
+
+                    b.ToTable("Reservations", t =>
+                        {
+                            t.HasCheckConstraint("CK_Reservations_DateRange", "\"EndDate\" >= \"StartDate\"");
+
+                            t.HasCheckConstraint("CK_Reservations_ReturnedOn_NotBeforeStart", "\"ReturnedOn\" IS NULL OR \"ReturnedOn\" >= \"StartDate\"");
+                        });
                 });
 
             modelBuilder.Entity("Eventix.Domain.Entities.ReservationItem", b =>
@@ -343,7 +360,10 @@ namespace Eventix.Infrastructure.Migrations
 
                     b.HasIndex("EquipmentId");
 
-                    b.ToTable("ReservationItems");
+                    b.ToTable("ReservationItems", t =>
+                        {
+                            t.HasCheckConstraint("CK_ReservationItems_Quantity_Positive", "\"Quantity\" > 0");
+                        });
                 });
 
             modelBuilder.Entity("Eventix.Domain.Entities.User", b =>
@@ -380,7 +400,8 @@ namespace Eventix.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("IX_Users_Email");
 
                     b.ToTable("Users");
                 });

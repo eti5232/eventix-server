@@ -1,6 +1,8 @@
 using System.Text;
+using Eventix.API.Auth;
 using Eventix.API.Errors;
 using Eventix.Application.Common;
+using Eventix.Application.Interfaces;
 using Eventix.Application.Options;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -20,6 +22,10 @@ public static class AuthenticationExtensions
     {
         var jwt = configuration.GetSection(JwtOptions.SectionName).Get<JwtOptions>() ?? new JwtOptions();
         EnsureSettingsAreValid(jwt);
+
+        // Lets services know who is calling (id and role), read from the validated token.
+        services.AddHttpContextAccessor();
+        services.AddScoped<ICurrentUser, HttpContextCurrentUser>();
 
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

@@ -33,6 +33,15 @@ public class EquipmentController : ControllerBase
     public async Task<IActionResult> GetById([FromRoute] int id, CancellationToken cancellationToken) =>
         Ok(await _equipment.GetByIdAsync(id, cancellationToken));
 
+    /// <summary>How many units are free on every day of a date range (at most 7 days).</summary>
+    [HttpGet("{id:int}/availability")]
+    [ProducesResponseType(typeof(AvailabilityResponseDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAvailability(
+        [FromRoute] int id, [FromQuery] AvailabilityQuery query, CancellationToken cancellationToken) =>
+        Ok(await _equipment.GetAvailabilityAsync(id, query.From!.Value, query.To!.Value, cancellationToken));
+
     /// <summary>Creates an equipment item.</summary>
     [Authorize(Roles = nameof(UserRole.Admin))]
     [HttpPost]

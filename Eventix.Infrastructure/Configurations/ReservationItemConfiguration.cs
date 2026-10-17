@@ -11,6 +11,7 @@ internal class ReservationItemConfiguration : IEntityTypeConfiguration<Reservati
     {
         builder.HasKey(i => new { i.ReservationId, i.EquipmentId });
         builder.Property(i => i.UnitPrice).HasPrecision(10, 2);
+        builder.ToTable(table => table.HasCheckConstraint("CK_ReservationItems_Quantity_Positive", "\"Quantity\" > 0"));
 
         builder.HasOne(i => i.Reservation)
             .WithMany(r => r.Items)
