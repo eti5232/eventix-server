@@ -244,3 +244,15 @@
   height: 4px;
   background: linear-gradient(90deg, var(--yellow) 0 25%, var(--teal) 25% 50%, var(--coral) 50% 75%, var(--brand) 75% 100%);
 }
+
+.footer {
+  position: relative;
+}
+.footer::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-start: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--yellow) 0 25%, var(--teal) 25% 50%, var(--coral) 50% 75%, var(--brand) 75% 100%);
+}

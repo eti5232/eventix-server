@@ -327,3 +327,155 @@
     transition: none;
   }
 }
+
+/* ---------- Extra home design: numbers strip, catalog sample, softer accents ---------- */
+.ring {
+  position: absolute;
+  inset-block-start: 2%;
+  inset-inline-end: 34%;
+  width: 70px;
+  height: 70px;
+  border: 8px solid var(--yellow);
+  border-radius: 50%;
+  opacity: 0.85;
+}
+
+.stats {
+  background: var(--paper);
+  border-block: 1px solid var(--line);
+}
+.statsInner {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: var(--space-3);
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4);
+  list-style: none;
+}
+.statsInner li {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-4) var(--space-5);
+  border-radius: var(--radius);
+  background: var(--tone-wash);
+}
+.statsInner strong {
+  font-size: 1.7rem;
+  font-weight: 900;
+  line-height: 1.1;
+}
+.statsInner span {
+  font-size: 0.9rem;
+  color: var(--ink-2);
+}
+
+.sectionHead h2::before {
+  content: '';
+  display: inline-block;
+  width: 10px;
+  height: 0.9em;
+  margin-inline-end: var(--space-3);
+  border-radius: 4px;
+  background: linear-gradient(180deg, var(--yellow) 0 33%, var(--teal) 33% 66%, var(--coral) 66% 100%);
+  vertical-align: -0.1em;
+}
+
+.featured {
+  background: var(--paper);
+  border-block: 1px solid var(--line);
+}
+.featuredInner {
+  max-width: var(--page-width);
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-4);
+}
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.product {
+  display: block;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.product:hover,
+.product:focus-visible {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+.product:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+}
+.productMedia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 16 / 10;
+  background: var(--tone-wash);
+}
+.productIcon {
+  width: 42%;
+  height: auto;
+}
+.pill {
+  position: absolute;
+  inset-block-start: var(--space-3);
+  inset-inline-start: var(--space-3);
+  padding: 3px var(--space-3);
+  border-radius: 999px;
+  background: var(--tone-solid);
+  color: var(--tone-on);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.productBody {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-4);
+}
+.productBody strong {
+  font-size: 1.05rem;
+}
+.price {
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+.price b {
+  color: var(--ink);
+  font-size: 1.2rem;
+}
+
+/* soft connector between the three steps */
+@media (min-width: 861px) {
+  .steps li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 46px;
+    inset-inline-end: calc(-1 * var(--space-4) - 6px);
+    width: calc(var(--space-4) + 12px);
+    border-top: 2px dashed var(--line-strong);
+  }
+  .steps li {
+    position: relative;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product,
+  .product:hover {
+    transform: none;
+    transition: none;
+  }
+}

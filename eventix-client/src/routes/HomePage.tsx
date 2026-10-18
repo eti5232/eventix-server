@@ -1,11 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { categoriesApi } from '../api/endpoints'
+import { categoriesApi, equipmentApi } from '../api/endpoints'
 import { CategoryIcon } from '../components/CategoryIcon'
 import { categoryLook, categoryTone } from '../lib/categories'
+import { formatMoney } from '../lib/dates'
 import styles from './HomePage.module.css'
 
-const FACTS = ['זמינות מתעדכנת לפי יום', 'השכרה של עד 7 ימים ברצף', 'ביטול עד תחילת האירוע']
+const FACTS = ['זמינות מתעדכנת לפי יום', 'השכרה של עד 7 ימים ברצף', 'ביטול עד יום לפני האירוע']
 
 const STEPS = [
   { title: 'בוחרים תאריכים', text: 'מסמנים את ימי האירוע, וכל הקטלוג מציג זמינות לטווח הזה.', tone: 'Speakers' },
@@ -15,6 +16,12 @@ const STEPS = [
 
 export function HomePage() {
   const categories = useQuery({ queryKey: ['categories'], queryFn: categoriesApi.list, staleTime: 5 * 60_000 })
+  // A small real sample of the catalog (also gives the total item count for the numbers strip).
+  const sample = useQuery({
+    queryKey: ['equipment', 'home'],
+    queryFn: () => equipmentApi.list({ pageSize: 4, sortBy: 'Price', sortDir: 'Desc' }),
+    staleTime: 5 * 60_000,
+  })
 
   return (
     <div className={styles.home}>
@@ -48,6 +55,7 @@ export function HomePage() {
           {/* Decorative collage: colored tiles with the category icons. */}
           <div className={styles.collage} aria-hidden="true">
             <span className={styles.blob} />
+            <span className={styles.ring} />
             <div className={`${styles.card} ${styles.cardA}`} style={categoryTone('Speakers')}>
               <CategoryIcon name="Speakers" className={styles.collageIcon} />
             </div>
@@ -60,6 +68,28 @@ export function HomePage() {
             <span className={styles.dot} />
           </div>
         </div>
+      </section>
+
+      {/* Real numbers from the catalog, in soft colored chips. */}
+      <section className={styles.stats} aria-label="הקטלוג במספרים">
+        <ul className={styles.statsInner}>
+          <li style={categoryTone('Speakers')}>
+            <strong className="num">{sample.data?.totalCount ?? '—'}</strong>
+            <span>פריטי ציוד בקטלוג</span>
+          </li>
+          <li style={categoryTone('Microphones')}>
+            <strong className="num">{categories.data?.length ?? '—'}</strong>
+            <span>קטגוריות</span>
+          </li>
+          <li style={categoryTone('Lighting')}>
+            <strong className="num">7</strong>
+            <span>ימי השכרה לכל היותר</span>
+          </li>
+          <li style={categoryTone('Projectors')}>
+            <strong>יום לפני</strong>
+            <span>האירוע: עדיין אפשר לבטל</span>
+          </li>
+        </ul>
       </section>
 
       <section className={styles.categories} aria-labelledby="cats">
@@ -95,6 +125,40 @@ export function HomePage() {
           })}
         </div>
       </section>
+
+      {sample.data && sample.data.items.length > 0 && (
+        <section className={styles.featured} aria-labelledby="featured">
+          <div className={styles.featuredInner}>
+            <div className={styles.sectionHead}>
+              <h2 id="featured">מהקטלוג</h2>
+              <Link to="/equipment" className={styles.allLink}>
+                לכל הציוד ←
+              </Link>
+            </div>
+            <ul className={styles.products}>
+              {sample.data.items.map((item) => {
+                const look = categoryLook(item.categoryName)
+                return (
+                  <li key={item.id}>
+                    <Link to={`/equipment/${item.id}`} className={styles.product} style={categoryTone(item.categoryName)}>
+                      <span className={styles.productMedia}>
+                        <CategoryIcon name={item.categoryName} className={styles.productIcon} />
+                        <span className={styles.pill}>{look.label}</span>
+                      </span>
+                      <span className={styles.productBody}>
+                        <strong>{item.name}</strong>
+                        <span className={styles.price}>
+                          <b className="num">{formatMoney(item.dailyPrice)}</b> ליום
+                        </span>
+                      </span>
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        </section>
+      )}
 
       <section id="how" className={styles.how} aria-labelledby="how-title">
         <div className={styles.howInner}>
