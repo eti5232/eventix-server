@@ -104,7 +104,7 @@ textarea {
   white-space: nowrap;
 }
 
-/* Buttons: orange is only for the main action of a screen. */
+/* Buttons: purple is only for the main action of a screen. */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -112,7 +112,7 @@ textarea {
   gap: var(--space-2);
   min-height: 46px;
   padding: 0 var(--space-5);
-  border: 1.5px solid var(--ink);
+  border: 1.5px solid var(--line-strong);
   border-radius: 999px;
   background: var(--paper);
   color: var(--ink);
@@ -123,7 +123,9 @@ textarea {
   transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 }
 .btn:hover:not(:disabled) {
-  background: var(--stage);
+  background: var(--paper);
+  border-color: var(--brand);
+  color: var(--brand-deep);
 }
 .btn:active:not(:disabled) {
   transform: translateY(1px);
@@ -133,13 +135,14 @@ textarea {
   opacity: 0.45;
 }
 .btn-primary {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: var(--ink);
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--orange-hover);
-  border-color: var(--orange-hover);
+  background: var(--brand-hover);
+  border-color: var(--brand-hover);
+  color: #fff;
 }
 .btn-danger {
   background: var(--ink);
@@ -154,7 +157,7 @@ textarea {
   background: transparent;
 }
 .btn-ghost:hover:not(:disabled) {
-  background: rgba(15, 27, 61, 0.06);
+  background: rgba(32, 35, 51, 0.06);
 }
 .btn-small {
   min-height: 38px;
@@ -191,7 +194,7 @@ textarea {
 .input:focus-visible,
 .select:focus-visible,
 .textarea:focus-visible {
-  border-color: var(--ink);
+  border-color: var(--brand);
 }
 .field-error {
   color: var(--alert);
@@ -208,10 +211,11 @@ textarea {
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   padding: var(--space-5);
+  box-shadow: var(--shadow-card);
 }
 
 .tape {
-  background: repeating-linear-gradient(-45deg, var(--ink) 0 8px, var(--orange) 8px 16px);
+  background: repeating-linear-gradient(-45deg, var(--brand) 0 8px, var(--yellow) 8px 16px);
 }
 
 .chip {
@@ -228,11 +232,11 @@ textarea {
   transition: background 0.15s ease, border-color 0.15s ease;
 }
 .chip:hover {
-  border-color: var(--ink);
+  border-color: var(--brand);
 }
 .chip[aria-pressed='true'] {
-  background: var(--ink);
-  border-color: var(--ink);
+  background: var(--brand);
+  border-color: var(--brand);
   color: var(--paper);
 }
 
@@ -244,20 +248,20 @@ textarea {
   font-weight: 700;
 }
 .badge-confirmed {
-  background: var(--orange-wash);
-  color: var(--orange-deep);
+  background: var(--brand-wash);
+  color: var(--brand-deep);
 }
 .badge-returned {
   background: var(--free-wash);
-  color: var(--free);
+  color: var(--teal-deep);
 }
 .badge-cancelled {
   background: var(--line);
   color: var(--ink-soft);
 }
 .badge-late {
-  background: var(--ink);
-  color: var(--orange);
+  background: var(--coral-wash);
+  color: #9c3a2d;
 }
 
 .table-wrap {
@@ -278,8 +282,8 @@ table.table {
   vertical-align: middle;
 }
 .table th {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--stage);
+  color: var(--ink-2);
   font-weight: 700;
   white-space: nowrap;
 }

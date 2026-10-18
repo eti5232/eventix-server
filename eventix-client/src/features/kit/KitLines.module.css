@@ -22,7 +22,7 @@
   width: 76px;
   height: 76px;
   border-radius: 10px;
-  background: radial-gradient(circle at 50% 45%, #ffffff 0%, var(--orange-wash) 100%);
+  background: var(--tone-wash, var(--brand-wash));
   color: var(--ink);
 }
 .thumbIcon {
@@ -31,9 +31,9 @@
 }
 
 .problem {
-  border-color: var(--ink);
+  border-color: var(--yellow-strong);
   background: var(--alert-wash);
-  box-shadow: inset 6px 0 0 var(--orange);
+  box-shadow: inset 6px 0 0 var(--yellow-strong);
 }
 
 .main {

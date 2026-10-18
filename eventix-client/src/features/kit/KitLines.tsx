@@ -1,6 +1,7 @@
 import { useKit, type KitItem } from './KitContext'
 import { useRangeAvailability } from '../catalog/useAvailability'
 import { CategoryIcon } from '../../components/CategoryIcon'
+import { categoryTone } from '../../lib/categories'
 import { formatMoney } from '../../lib/dates'
 import styles from './KitLines.module.css'
 
@@ -19,7 +20,7 @@ function KitLine({ item, flagged }: KitLineProps) {
 
   return (
     <li className={`${styles.line} ${over || flagged ? styles.problem : ''}`} data-equipment-id={item.equipmentId}>
-      <span className={styles.thumb} aria-hidden="true">
+      <span className={styles.thumb} style={categoryTone(item.categoryName ?? '')} aria-hidden="true">
         <CategoryIcon name={item.categoryName ?? ''} className={styles.thumbIcon} />
       </span>
       <div className={styles.main}>

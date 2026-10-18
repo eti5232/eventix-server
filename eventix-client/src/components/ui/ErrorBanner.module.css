@@ -6,8 +6,8 @@
   justify-content: space-between;
   gap: var(--space-4);
   padding: var(--space-4) var(--space-5);
-  border: 1px solid #f0c48a;
-  border-inline-start: 8px solid var(--ink);
+  border: 1px solid var(--yellow);
+  border-inline-start: 8px solid var(--yellow-strong);
   border-radius: var(--radius);
   background: var(--alert-wash);
   color: var(--ink);

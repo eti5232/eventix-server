@@ -1,6 +1,6 @@
 .intro {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--stage);
+  color: var(--ink);
 }
 .introInner {
   max-width: var(--page-width);
@@ -14,10 +14,10 @@
   font-weight: 900;
 }
 .introInner p {
-  color: #d3d9ec;
+  color: var(--ink-soft);
 }
 .introInner strong {
-  color: var(--orange);
+  color: var(--brand-deep);
 }
 
 .toolbar {

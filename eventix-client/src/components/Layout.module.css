@@ -4,7 +4,7 @@
   inset-block-start: -80px;
   z-index: 200;
   padding: var(--space-2) var(--space-4);
-  background: var(--orange);
+  background: var(--brand);
   border-radius: 999px;
   font-weight: 700;
 }
@@ -70,7 +70,7 @@
   inset-block-end: -2px;
   height: 3px;
   border-radius: 3px;
-  background: var(--orange);
+  background: var(--brand);
 }
 
 .actions {
@@ -109,14 +109,14 @@
   padding: 0 var(--space-3) 0 var(--space-4);
   border: 0;
   border-radius: 999px;
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--brand);
+  color: #fff;
   font-weight: 700;
   cursor: pointer;
   transition: background 0.15s ease;
 }
 .cart:hover {
-  background: var(--ink-2);
+  background: var(--brand-hover);
 }
 .cartIcon {
   width: 22px;
@@ -134,7 +134,7 @@
   height: 26px;
   padding: 0 7px;
   border-radius: 999px;
-  background: var(--orange);
+  background: var(--yellow);
   color: var(--ink);
   font-size: 0.88rem;
 }
@@ -166,8 +166,9 @@
 }
 
 .footer {
-  background: var(--ink);
-  color: #c5cce0;
+  background: var(--paper);
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
   padding: var(--space-6) var(--space-4);
 }
 .footerInner {
@@ -202,7 +203,7 @@
   font-weight: 500;
 }
 .footerNav a:hover {
-  color: var(--orange);
+  color: var(--brand);
 }
 
 @media (max-width: 960px) {

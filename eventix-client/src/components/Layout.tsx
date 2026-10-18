@@ -103,7 +103,7 @@ export function Layout() {
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <div className={styles.brand}>
-            <img src="/brand/eventix-logo-dark.png" alt="Eventix" width={163} height={56} />
+            <img src="/brand/eventix-logo.png" alt="Eventix" width={163} height={56} />
             <span>השכרת ציוד הפקה לאירועים</span>
           </div>
           <nav className={styles.footerNav} aria-label="תחתית">

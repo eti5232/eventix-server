@@ -5,10 +5,11 @@
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--paper);
+  box-shadow: var(--shadow-card);
   transition: border-color 0.2s ease, transform 0.2s ease;
 }
 .card:hover {
-  border-color: var(--ink);
+  border-color: var(--brand);
   transform: translateY(-3px);
 }
 
@@ -18,7 +19,7 @@
   place-items: center;
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  background: radial-gradient(circle at 50% 45%, #ffffff 0%, var(--orange-wash) 100%);
+  background: var(--tone-wash, var(--brand-wash));
   color: var(--ink);
 }
 .icon {
@@ -74,7 +75,7 @@
 }
 .link:hover {
   text-decoration: underline;
-  text-decoration-color: var(--orange);
+  text-decoration-color: var(--brand);
   text-decoration-thickness: 3px;
   text-underline-offset: 4px;
 }

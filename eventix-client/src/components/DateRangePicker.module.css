@@ -46,7 +46,7 @@
 }
 
 .day:hover:not(:disabled) {
-  background: var(--orange-wash);
+  background: var(--brand-wash);
 }
 
 .day:disabled {
@@ -59,14 +59,14 @@
 }
 
 .inRange {
-  background: var(--orange-wash);
+  background: var(--brand-wash);
   border-radius: 0;
 }
 
 .edge {
-  background: var(--orange);
-  border-color: var(--orange);
-  color: var(--ink);
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
   border-radius: 10px;
   font-weight: 800;
 }

@@ -9,7 +9,7 @@ import { ErrorBanner } from '../components/ui/ErrorBanner'
 import { AddToKit } from '../features/catalog/AddToKit'
 import { useDayAvailability } from '../features/catalog/useAvailability'
 import { useKit } from '../features/kit/KitContext'
-import { categoryLook } from '../lib/categories'
+import { categoryLook, categoryTone } from '../lib/categories'
 import { formatMoney, formatRange } from '../lib/dates'
 import { NotFoundPage } from './NotFoundPage'
 import styles from './EquipmentPage.module.css'
@@ -48,7 +48,7 @@ export function EquipmentPage() {
       </nav>
 
       <div className={styles.layout}>
-        <div className={styles.photo}>
+        <div className={styles.photo} style={categoryTone(equipment.categoryName)}>
           <CategoryIcon name={equipment.categoryName} className={styles.icon} />
         </div>
 
