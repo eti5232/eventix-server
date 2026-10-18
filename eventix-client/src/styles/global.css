@@ -22,6 +22,16 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Sticky footer: on short pages the content grows so the footer stays at the bottom of the screen. */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+#root > main {
+  flex: 1 0 auto;
+}
+
 h1,
 h2,
 h3 {
