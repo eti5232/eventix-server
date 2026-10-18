@@ -4,7 +4,7 @@ import type { CSSProperties } from 'react'
 // An unknown category falls back to the server's name, a generic crate icon and the brand color, so new categories still render.
 
 export type CategoryKind = 'speakers' | 'microphones' | 'lighting' | 'projectors' | 'stages' | 'crate'
-type Tone = 'yellow' | 'teal' | 'coral' | 'brand'
+type Tone = 'yellow' | 'teal' | 'coral' | 'brand' | 'sky'
 
 interface CategoryLook {
   kind: CategoryKind
@@ -17,7 +17,7 @@ const LOOKS: Record<string, CategoryLook> = {
   microphones: { kind: 'microphones', label: 'מיקרופונים', tone: 'teal' },
   lighting: { kind: 'lighting', label: 'תאורה', tone: 'coral' },
   projectors: { kind: 'projectors', label: 'מקרנים ומסכים', tone: 'brand' },
-  stages: { kind: 'stages', label: 'במות וטראסים', tone: 'yellow' },
+  stages: { kind: 'stages', label: 'במות וטראסים', tone: 'sky' },
 }
 
 // Soft background and strong accent for each tone (the strong color is used for the icon detail).
@@ -27,6 +27,7 @@ const TONES: Record<Tone, { wash: string; strong: string; solid: string; on: str
   teal: { wash: 'var(--teal-wash)', strong: 'var(--teal)', solid: 'var(--teal)', on: 'var(--ink)' },
   coral: { wash: 'var(--coral-wash)', strong: 'var(--coral)', solid: 'var(--coral)', on: 'var(--ink)' },
   brand: { wash: 'var(--brand-wash)', strong: 'var(--brand)', solid: 'var(--brand)', on: '#fff' },
+  sky: { wash: 'var(--sky-wash)', strong: 'var(--sky)', solid: 'var(--sky)', on: 'var(--ink)' },
 }
 
 export function categoryLook(name: string): CategoryLook {
