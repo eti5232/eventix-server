@@ -1,5 +1,6 @@
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../features/auth/AuthContext'
+import { UserMenu } from './UserMenu'
 import { KitDrawer } from '../features/kit/KitDrawer'
 import { useKit } from '../features/kit/KitContext'
 import { formatRange } from '../lib/dates'
@@ -74,19 +75,13 @@ export function Layout() {
             </button>
 
             {user ? (
-              <div className={styles.user}>
-                <span className={styles.userName}>{user.fullName}</span>
-                <button
-                  type="button"
-                  className="btn btn-small"
-                  onClick={() => {
-                    logout()
-                    navigate('/')
-                  }}
-                >
-                  יציאה
-                </button>
-              </div>
+              <UserMenu
+                user={user}
+                onLogout={() => {
+                  logout()
+                  navigate('/')
+                }}
+              />
             ) : (
               <Link to="/login" className="btn btn-small">
                 התחברות

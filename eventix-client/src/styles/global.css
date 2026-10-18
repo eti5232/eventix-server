@@ -324,3 +324,18 @@ table.table {
     scroll-behavior: auto !important;
   }
 }
+
+/* Icon-only action buttons (edit, remove) */
+.icon-btn {
+  width: 38px;
+  padding: 0;
+}
+.icon-btn svg {
+  width: 18px;
+  height: 18px;
+}
+.icon-btn-danger:hover:not(:disabled) {
+  border-color: var(--coral);
+  background: var(--coral-wash);
+  color: #b8402f;
+}

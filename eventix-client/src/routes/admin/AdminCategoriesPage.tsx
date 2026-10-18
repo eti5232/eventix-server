@@ -3,6 +3,7 @@ import { useEffect, useState, type FormEvent } from 'react'
 import { categoriesApi } from '../../api/endpoints'
 import { toApiError, type ApiError } from '../../api/errors'
 import { Dialog } from '../../components/ui/Dialog'
+import { IconButton } from '../../components/ui/IconButton'
 import { ErrorBanner } from '../../components/ui/ErrorBanner'
 import { useToast } from '../../components/ui/Toast'
 import type { Category } from '../../types'
@@ -73,9 +74,7 @@ export function AdminCategoriesPage() {
                   </td>
                   <td className="muted">{c.description}</td>
                   <td>
-                    <button type="button" className="btn btn-small" onClick={() => setEditing(c)}>
-                      עריכה
-                    </button>
+                    <IconButton icon="edit" label="עריכת קטגוריה" onClick={() => setEditing(c)} />
                   </td>
                 </tr>
               ))}

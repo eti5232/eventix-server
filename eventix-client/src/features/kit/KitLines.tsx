@@ -1,6 +1,7 @@
 import { useKit, type KitItem } from './KitContext'
 import { useRangeAvailability } from '../catalog/useAvailability'
 import { CategoryIcon } from '../../components/CategoryIcon'
+import { IconButton } from '../../components/ui/IconButton'
 import { categoryTone } from '../../lib/categories'
 import { formatMoney } from '../../lib/dates'
 import styles from './KitLines.module.css'
@@ -55,9 +56,7 @@ function KitLine({ item, flagged }: KitLineProps) {
             +
           </button>
         </div>
-        <button type="button" className="btn btn-ghost btn-small" onClick={() => kit.remove(item.equipmentId)}>
-          הסרה
-        </button>
+        <IconButton icon="trash" label="הסרה מההזמנה" onClick={() => kit.remove(item.equipmentId)} />
       </div>
 
       {(over || flagged) && max !== undefined && (
@@ -68,9 +67,7 @@ function KitLine({ item, flagged }: KitLineProps) {
               עדכון לכמות {max}
             </button>
           )}
-          <button type="button" className="btn btn-small" onClick={() => kit.remove(item.equipmentId)}>
-            הסרה מההזמנה
-          </button>
+          <IconButton icon="trash" label="הסרה מההזמנה" onClick={() => kit.remove(item.equipmentId)} />
         </div>
       )}
     </li>
