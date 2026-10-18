@@ -1,0 +1,239 @@
+.skip {
+  position: absolute;
+  inset-inline-start: var(--space-3);
+  inset-block-start: -80px;
+  z-index: 200;
+  padding: var(--space-2) var(--space-4);
+  background: var(--orange);
+  border-radius: 999px;
+  font-weight: 700;
+}
+.skip:focus {
+  inset-block-start: var(--space-3);
+}
+
+.header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: 50;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: saturate(1.4) blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  max-width: var(--page-width);
+  min-height: var(--header-h);
+  margin-inline: auto;
+  padding: 0 var(--space-4);
+}
+
+.logo {
+  display: block;
+  flex: none;
+  line-height: 0;
+}
+.logo img {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+
+.nav {
+  display: flex;
+  gap: var(--space-1);
+  flex: 1;
+}
+
+.link {
+  position: relative;
+  padding: var(--space-2) var(--space-3);
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+  color: var(--ink-soft);
+}
+.link:hover {
+  color: var(--ink);
+}
+.active {
+  color: var(--ink);
+}
+.active::after {
+  content: '';
+  position: absolute;
+  inset-inline: var(--space-3);
+  inset-block-end: -2px;
+  height: 3px;
+  border-radius: 3px;
+  background: var(--orange);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.dates {
+  display: grid;
+  gap: 0;
+  padding: 4px var(--space-4);
+  border: 1.5px solid var(--line-strong);
+  border-radius: var(--radius);
+  background: var(--paper);
+  text-align: start;
+  line-height: 1.25;
+  cursor: pointer;
+}
+.dates:hover {
+  border-color: var(--ink);
+}
+.datesLabel {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+}
+.dates .num {
+  font-weight: 700;
+}
+
+.cart {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 46px;
+  padding: 0 var(--space-3) 0 var(--space-4);
+  border: 0;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.cart:hover {
+  background: var(--ink-2);
+}
+.cartIcon {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 7px;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--ink);
+  font-size: 0.88rem;
+}
+/* The one animation of the header: the counter pops when an item is added. */
+.bump {
+  animation: bump 0.45s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+@keyframes bump {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: none;
+  }
+}
+
+.user {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.userName {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  max-width: 14ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.footer {
+  background: var(--ink);
+  color: #c5cce0;
+  padding: var(--space-6) var(--space-4);
+}
+.footerInner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-5);
+  max-width: var(--page-width);
+  margin-inline: auto;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.brand img {
+  display: block;
+  height: 56px;
+  width: auto;
+}
+.brand span {
+  font-size: 0.9rem;
+}
+.footerNav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+.footerNav a {
+  text-decoration: none;
+  font-weight: 500;
+}
+.footerNav a:hover {
+  color: var(--orange);
+}
+
+@media (max-width: 960px) {
+  .bar {
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+    padding-block: var(--space-2);
+  }
+  .logo img {
+    height: 46px;
+  }
+  .nav {
+    order: 3;
+    flex-basis: 100%;
+    overflow-x: auto;
+    padding-bottom: 2px;
+  }
+  .actions {
+    margin-inline-start: auto;
+  }
+  .userName,
+  .dates {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .cartText {
+    display: none;
+  }
+  .cart {
+    padding: 0 var(--space-3);
+  }
+}

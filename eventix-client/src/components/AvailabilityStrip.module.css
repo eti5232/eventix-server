@@ -1,0 +1,79 @@
+.strip {
+  display: flex;
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  justify-items: center;
+  align-items: center;
+  height: 58px;
+  padding: var(--space-1) 0;
+  border: 1.5px solid var(--orange);
+  border-radius: 8px;
+  background: var(--orange-wash);
+  color: var(--ink);
+  overflow: hidden;
+}
+
+.compact .cell {
+  height: 46px;
+}
+
+.value {
+  font-size: 1.2rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.day {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1;
+}
+
+/* every unit is free that day */
+.all {
+  background: var(--free-wash);
+  border-color: var(--free);
+  color: #12583a;
+}
+
+/* nothing free: gaffer-tape stripes */
+.full {
+  background: repeating-linear-gradient(-45deg, var(--ink) 0 5px, #2b3b73 5px 10px);
+  border-color: var(--ink);
+}
+.full .day {
+  color: var(--paper);
+  background: var(--ink);
+  padding: 0 4px;
+  border-radius: 3px;
+}
+
+.loading {
+  opacity: 0.5;
+  border-color: var(--line-strong);
+  background: var(--stage);
+}
+
+/* the day the server rejected (409) */
+.clash {
+  box-shadow: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+}
+
+.hint {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  padding: var(--space-3);
+  border: 1.5px dashed var(--line-strong);
+  border-radius: var(--radius);
+  text-align: center;
+}

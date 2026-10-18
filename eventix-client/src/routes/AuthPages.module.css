@@ -1,0 +1,48 @@
+.card {
+  display: grid;
+  gap: var(--space-4);
+  width: min(460px, 100%);
+  margin: var(--space-6) auto 0;
+  padding: var(--space-6) var(--space-5);
+  border: 1px solid var(--line);
+  border-top: 5px solid var(--orange);
+  border-radius: var(--radius-lg);
+  background: var(--paper);
+}
+
+.form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.demo {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--line-strong);
+}
+.demoTitle {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.demoButtons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: var(--space-3);
+}
+.demoButton {
+  display: grid;
+  gap: 2px;
+  justify-items: start;
+  height: auto;
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius);
+  text-align: start;
+  white-space: normal;
+}
+.demoButton span {
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+}

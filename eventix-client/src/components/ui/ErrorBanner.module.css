@@ -1,0 +1,41 @@
+/* Errors and conflicts: warm amber surface with a dark edge, never red. */
+.banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid #f0c48a;
+  border-inline-start: 8px solid var(--ink);
+  border-radius: var(--radius);
+  background: var(--alert-wash);
+  color: var(--ink);
+}
+
+.text {
+  display: grid;
+  gap: var(--space-1);
+}
+
+.text strong {
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.code {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+}
+
+.code code {
+  font-family: ui-monospace, Consolas, monospace;
+  direction: ltr;
+  unicode-bidi: embed;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
