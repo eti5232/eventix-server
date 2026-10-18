@@ -1,3 +1,4 @@
+import { daysLabel } from '../lib/plural'
 import { useState } from 'react'
 import { useKit } from '../features/kit/KitContext'
 import { formatRange } from '../lib/dates'
@@ -18,7 +19,7 @@ export function RangeButton({ emphasis = false }: { emphasis?: boolean }) {
         </svg>
         {kit.hasRange ? (
           <span className="num">
-            {formatRange(kit.start!, kit.end!)} · {kit.days} {kit.days === 1 ? 'יום' : 'ימים'}
+            {formatRange(kit.start!, kit.end!)} · {daysLabel(kit.days)}
           </span>
         ) : (
           'בחירת תאריכים'

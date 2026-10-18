@@ -1,3 +1,4 @@
+import { unitsLabel } from '../lib/plural'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
@@ -77,7 +78,7 @@ export function MyReservationsPage() {
                   <StatusBadge reservation={r} />
                 </div>
                 <p className="muted num">
-                  {formatRange(r.startDate, r.endDate)} · {r.items.reduce((sum, i) => sum + i.quantity, 0)} יחידות · {formatMoney(r.totalPrice)}
+                  {formatRange(r.startDate, r.endDate)} · {unitsLabel(r.items.reduce((sum, i) => sum + i.quantity, 0))} · {formatMoney(r.totalPrice)}
                 </p>
                 <p>{r.items.map((i) => `${i.equipmentName} ×${i.quantity}`).join(' · ')}</p>
                 <div style={{ display: 'flex', gap: 'var(--space-2)' }}>

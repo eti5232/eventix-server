@@ -1,3 +1,4 @@
+import { itemsLabel } from '../lib/plural'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
 import { useAuth } from '../features/auth/AuthContext'
 import { UserMenu } from './UserMenu'
@@ -63,7 +64,7 @@ export function Layout() {
                 type="button"
                 className={styles.cart}
                 onClick={() => kit.setDrawerOpen(true)}
-                aria-label={`ההזמנה שלי, ${kit.unitCount} פריטים`}
+                aria-label={`ההזמנה שלי, ${itemsLabel(kit.unitCount)}`}
               >
                 <svg viewBox="0 0 24 24" className={styles.cartIcon} aria-hidden="true">
                   <path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.1L20 8H6.2" />

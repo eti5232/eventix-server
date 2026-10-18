@@ -1,3 +1,4 @@
+import { daysLabel } from '../lib/plural'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
@@ -54,7 +55,7 @@ export function ReservationPage() {
         </div>
 
         <p>
-          {formatLong(r.startDate)} עד {formatLong(r.endDate)} <span className="muted">({days} ימים)</span>
+          {formatLong(r.startDate)} עד {formatLong(r.endDate)} <span className="muted">({daysLabel(days)})</span>
         </p>
         {r.returnedOn && <p className="muted">הוחזרה ב־{formatLong(r.returnedOn)}</p>}
 

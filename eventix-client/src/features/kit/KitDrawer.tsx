@@ -1,3 +1,4 @@
+import { daysLabel, itemsLabel } from '../../lib/plural'
 import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { RangeButton } from '../../components/RangeButton'
@@ -58,7 +59,7 @@ export function KitDrawer() {
                   <>
                     <div className={styles.row}>
                       <span>
-                        {kit.unitCount} פריטים × {kit.days} ימים
+                        {itemsLabel(kit.unitCount)} × {daysLabel(kit.days)}
                       </span>
                       <span className="muted num">{formatRange(kit.start!, kit.end!)}</span>
                     </div>

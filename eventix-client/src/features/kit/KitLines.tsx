@@ -61,7 +61,11 @@ function KitLine({ item, flagged }: KitLineProps) {
 
       {(over || flagged) && max !== undefined && (
         <div className={styles.warning} role="alert">
-          {soldOut ? 'אין יחידות פנויות בטווח הזה.' : `בתאריכים שנבחרו נשארו רק ${max} יחידות פנויות.`}
+          {soldOut
+            ? 'אין יחידות פנויות בטווח הזה.'
+            : max === 1
+              ? 'בתאריכים שנבחרו נשארה רק יחידה אחת פנויה.'
+              : `בתאריכים שנבחרו נשארו רק ${max} יחידות פנויות.`}
           {!soldOut && (
             <button type="button" className="btn btn-small" onClick={() => kit.setQuantity(item.equipmentId, max)}>
               עדכון לכמות {max}

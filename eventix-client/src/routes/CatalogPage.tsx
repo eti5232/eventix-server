@@ -1,3 +1,4 @@
+import { itemsLabel } from '../lib/plural'
 import { keepPreviousData, useQuery } from '@tanstack/react-query'
 import { useState, type FormEvent } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -216,7 +217,7 @@ export function CatalogPage() {
         {equipment.data && equipment.data.items.length > 0 && (
           <>
             <p className="muted" aria-live="polite" style={{ marginBottom: 'var(--space-3)' }}>
-              <span className="num">{equipment.data.totalCount}</span> פריטים
+              <span className="num">{itemsLabel(equipment.data.totalCount)}</span>
             </p>
             <div className={`${styles.grid} ${equipment.isPlaceholderData ? styles.stale : ''}`}>
               {equipment.data.items.map((item) => (

@@ -1,3 +1,4 @@
+import { daysLabel } from '../lib/plural'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
@@ -118,7 +119,7 @@ export function CheckoutPage() {
               <div>
                 <dt>טווח</dt>
                 <dd className="num">
-                  {formatRange(kit.start!, kit.end!)} ({kit.days} ימים)
+                  {formatRange(kit.start!, kit.end!)} ({daysLabel(kit.days)})
                 </dd>
               </div>
               {kit.items.map((i) => (

@@ -1,3 +1,4 @@
+import { daysLabel, unitsLabel } from '../lib/plural'
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 import { equipmentApi } from '../api/endpoints'
@@ -61,7 +62,7 @@ export function EquipmentPage() {
               <strong className="num">{formatMoney(equipment.dailyPrice)}</strong> <span className="muted">ליום</span>
             </p>
             <p className="muted">
-              כמות במלאי: <span className="num">{equipment.totalQuantity}</span> יחידות
+              כמות במלאי: <span className="num">{unitsLabel(equipment.totalQuantity)}</span>
             </p>
           </section>
 
@@ -93,7 +94,7 @@ export function EquipmentPage() {
 
             {kit.hasRange && availability.minAvailable !== undefined && (
               <p className="muted num">
-                {kit.days} ימים × {formatMoney(equipment.dailyPrice)} = {formatMoney(kit.days * equipment.dailyPrice)} ליחידה
+                {daysLabel(kit.days)} × {formatMoney(equipment.dailyPrice)} = {formatMoney(kit.days * equipment.dailyPrice)} ליחידה
               </p>
             )}
           </section>
