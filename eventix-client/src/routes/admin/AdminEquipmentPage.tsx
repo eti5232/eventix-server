@@ -5,6 +5,7 @@ import { categoriesApi, equipmentApi } from '../../api/endpoints'
 import { toApiError, type ApiError } from '../../api/errors'
 import { Dialog } from '../../components/ui/Dialog'
 import { ErrorBanner } from '../../components/ui/ErrorBanner'
+import { IconButton } from '../../components/ui/IconButton'
 import { Pagination } from '../../components/ui/Pagination'
 import { useToast } from '../../components/ui/Toast'
 import { formatMoney } from '../../lib/dates'
@@ -124,19 +125,15 @@ export function AdminEquipmentPage() {
                     <td className="num">{item.totalQuantity}</td>
                     <td>
                       <div style={{ display: 'flex', gap: 'var(--space-2)' }}>
-                        <button type="button" className="btn btn-small" onClick={() => setEditing(item)}>
-                          עריכה
-                        </button>
-                        <button
-                          type="button"
-                          className="btn btn-small"
+                        <IconButton icon="edit" label="עריכת פריט" onClick={() => setEditing(item)} />
+                        <IconButton
+                          icon="trash"
+                          label="הסרת פריט מהקטלוג"
                           onClick={() => {
                             setError(null)
                             setRemoving(item)
                           }}
-                        >
-                          הסרה
-                        </button>
+                        />
                       </div>
                     </td>
                   </tr>

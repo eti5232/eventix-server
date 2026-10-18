@@ -2,15 +2,15 @@ import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
 import { categoriesApi } from '../api/endpoints'
 import { CategoryIcon } from '../components/CategoryIcon'
-import { categoryLook } from '../lib/categories'
+import { categoryLook, categoryTone } from '../lib/categories'
 import styles from './HomePage.module.css'
 
-const FACTS = ['זמינות מתעדכנת לפי יום', 'השכרה של עד 7 ימים ברצף', 'ביטול עד תחילת האירוע']
+const FACTS = ['זמינות מתעדכנת לפי יום', 'השכרה של עד 7 ימים ברצף', 'ביטול עד יום לפני האירוע']
 
 const STEPS = [
-  { title: 'בוחרים תאריכים', text: 'מסמנים את ימי האירוע, וכל הקטלוג מציג זמינות לטווח הזה.' },
-  { title: 'מוסיפים ציוד להזמנה', text: 'בוחרים כמויות לפי מה שפנוי בכל יום של האירוע.' },
-  { title: 'מאשרים הזמנה', text: 'ההזמנה נשמרת כולה או לא נשמרת בכלל, בלי הזמנות חלקיות.' },
+  { title: 'בוחרים תאריכים', text: 'מסמנים את ימי האירוע, וכל הקטלוג מציג זמינות לטווח הזה.', tone: 'Speakers' },
+  { title: 'מוסיפים ציוד להזמנה', text: 'בוחרים כמויות לפי מה שפנוי בכל יום של האירוע.', tone: 'Microphones' },
+  { title: 'מאשרים הזמנה', text: 'ההזמנה נשמרת כולה או לא נשמרת בכלל, בלי הזמנות חלקיות.', tone: 'Lighting' },
 ]
 
 export function HomePage() {
@@ -19,17 +19,13 @@ export function HomePage() {
   return (
     <div className={styles.home}>
       <section className={styles.hero} aria-labelledby="headline">
-        <div className={styles.photo} aria-hidden="true">
-          <img src="/images/hero-background.jpg" alt="" width={1920} height={1080} fetchPriority="high" />
-        </div>
-
         <div className={styles.heroInner}>
           <div className={styles.copy}>
             <p className={styles.eyebrow}>השכרת ציוד הפקה</p>
             <h1 id="headline" className={styles.headline}>
-              ציוד <mark>הפקה</mark>
+              ציוד הפקה
               <br />
-              לכל אירוע
+              לכל <mark>אירוע</mark>
             </h1>
             <p className={styles.lead}>
               מערכות קול, תאורה, הקרנה ובמות להשכרה. בוחרים תאריכי אירוע, רואים מה פנוי, ומזמינים באתר.
@@ -39,16 +35,31 @@ export function HomePage() {
                 לקטלוג הציוד
               </Link>
               <a href="#how" className={styles.textLink}>
-                איך זה עובד
+                איך זה עובד ←
               </a>
             </div>
+            <ul className={styles.facts}>
+              {FACTS.map((fact) => (
+                <li key={fact}>{fact}</li>
+              ))}
+            </ul>
           </div>
 
-          <ul className={styles.facts}>
-            {FACTS.map((fact) => (
-              <li key={fact}>{fact}</li>
-            ))}
-          </ul>
+          {/* Decorative collage: colored tiles with the category icons. */}
+          <div className={styles.collage} aria-hidden="true">
+            <span className={styles.blob} />
+            <span className={styles.ring} />
+            <div className={`${styles.card} ${styles.cardA}`} style={categoryTone('Speakers')}>
+              <CategoryIcon name="Speakers" className={styles.collageIcon} />
+            </div>
+            <div className={`${styles.card} ${styles.cardB}`} style={categoryTone('Lighting')}>
+              <CategoryIcon name="Lighting" className={styles.collageIcon} />
+            </div>
+            <div className={`${styles.card} ${styles.cardC}`} style={categoryTone('Microphones')}>
+              <CategoryIcon name="Microphones" className={styles.collageIcon} />
+            </div>
+            <span className={styles.dot} />
+          </div>
         </div>
       </section>
 
@@ -60,7 +71,7 @@ export function HomePage() {
           </Link>
         </div>
 
-        <div className={styles.bento}>
+        <div className={styles.tiles}>
           {categories.isLoading &&
             Array.from({ length: 5 }, (_, i) => <div key={i} className={`${styles.tile} skeleton`} />)}
           {categories.isError && (
@@ -69,7 +80,12 @@ export function HomePage() {
           {categories.data?.map((category) => {
             const look = categoryLook(category.name)
             return (
-              <Link key={category.id} to={`/equipment?category=${category.id}`} className={styles.tile}>
+              <Link
+                key={category.id}
+                to={`/equipment?category=${category.id}`}
+                className={styles.tile}
+                style={categoryTone(category.name)}
+              >
                 <CategoryIcon name={category.name} className={styles.icon} />
                 <span className={styles.label}>
                   <strong>{look.label}</strong>
@@ -81,12 +97,32 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className={styles.about} aria-labelledby="about">
+        <div className={styles.aboutInner}>
+          <div className={styles.aboutText}>
+            <h2 id="about">אודות Eventix</h2>
+            <p>
+              Eventix היא מערכת להשכרת ציוד הפקה לאירועים: מערכות קול, תאורה, הקרנה ובמות. בוחרים את תאריכי האירוע,
+              רואים מה פנוי בכל יום, ומזמינים את כל הציוד בהזמנה אחת.
+            </p>
+            <p>
+              הציוד מוגבל בכמות, ולכן הזמינות נבדקת בכל הזמנה מחדש, והזמנה נשמרת רק אם כל הפריטים פנויים בכל ימי האירוע.
+            </p>
+          </div>
+          <ul className={styles.aboutList}>
+            <li style={categoryTone('Speakers')}>זמינות מעודכנת לפי יום</li>
+            <li style={categoryTone('Microphones')}>הזמנה אחת לכל הציוד</li>
+            <li style={categoryTone('Lighting')}>ביטול עד יום לפני האירוע</li>
+          </ul>
+        </div>
+      </section>
+
       <section id="how" className={styles.how} aria-labelledby="how-title">
         <div className={styles.howInner}>
           <h2 id="how-title">איך משכירים</h2>
           <ol className={styles.steps}>
             {STEPS.map((step, index) => (
-              <li key={step.title}>
+              <li key={step.title} style={categoryTone(step.tone)}>
                 <span className={styles.stepNo} aria-hidden="true">
                   {index + 1}
                 </span>
@@ -101,7 +137,7 @@ export function HomePage() {
       <section className={styles.closing} aria-labelledby="closing">
         <div className={styles.closingInner}>
           <h2 id="closing">מתחילים להרכיב את ההזמנה</h2>
-          <Link to="/equipment" className={`btn btn-primary ${styles.big}`}>
+          <Link to="/equipment" className={styles.closingButton}>
             לקטלוג הציוד
           </Link>
         </div>

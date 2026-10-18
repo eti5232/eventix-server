@@ -68,7 +68,7 @@ export function CategoryIcon({ name, className }: { name: string; className?: st
       strokeLinecap="round"
       strokeLinejoin="round"
     >
-      <style>{`.accent{stroke:#ff7a00}`}</style>
+      <style>{`.accent{stroke:var(--icon-accent,#5B4BDB)}`}</style>
       {ICONS[categoryLook(name).kind]}
     </svg>
   )

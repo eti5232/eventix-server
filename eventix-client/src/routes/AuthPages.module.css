@@ -5,7 +5,7 @@
   margin: var(--space-6) auto 0;
   padding: var(--space-6) var(--space-5);
   border: 1px solid var(--line);
-  border-top: 5px solid var(--orange);
+  border-top: 5px solid var(--brand);
   border-radius: var(--radius-lg);
   background: var(--paper);
 }

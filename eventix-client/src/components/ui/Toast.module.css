@@ -15,7 +15,7 @@
   color: var(--paper);
   font-weight: 500;
   box-shadow: var(--shadow-soft);
-  border-inline-start: 5px solid var(--orange);
+  border-inline-start: 5px solid var(--brand);
 }
 
 .error {

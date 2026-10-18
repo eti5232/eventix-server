@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 import { AvailabilityStrip } from '../../components/AvailabilityStrip'
 import { CategoryIcon } from '../../components/CategoryIcon'
-import { categoryLook } from '../../lib/categories'
+import { categoryLook, categoryTone } from '../../lib/categories'
 import { formatMoney } from '../../lib/dates'
 import type { Equipment } from '../../types'
 import { useKit } from '../kit/KitContext'
@@ -18,7 +18,7 @@ export function EquipmentCard({ equipment }: { equipment: Equipment }) {
 
   return (
     <article className={`${styles.card} ${soldOut ? styles.soldOut : ''}`}>
-      <Link to={`/equipment/${equipment.id}`} className={styles.media} tabIndex={-1} aria-hidden="true">
+      <Link to={`/equipment/${equipment.id}`} className={styles.media} style={categoryTone(equipment.categoryName)} tabIndex={-1} aria-hidden="true">
         <CategoryIcon name={equipment.categoryName} className={styles.icon} />
         <span className={styles.category}>{look.label}</span>
         {soldOut && <span className={styles.badge}>לא פנוי בתאריכים שנבחרו</span>}

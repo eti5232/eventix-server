@@ -1,22 +1,38 @@
-/* Eventix design tokens: charcoal + white foundation, one orange accent from the logo. No reds. */
+/* Eventix design tokens: a bright storefront. White and light gray base, purple for actions,
+   yellow / teal / coral as category accents. No orange, no neon, no dark backgrounds as the main look. */
 :root {
-  --orange: #ff7a00;
-  --orange-hover: #e86d00;
-  --orange-deep: #b04f00; /* orange as text on white (passes AA) */
-  --orange-wash: #fff1e3;
+  /* Brand (primary action) */
+  --brand: #5b4bdb;
+  --brand-hover: #4a3cc4;
+  --brand-deep: #4a3cc4; /* brand as text on white (passes AA) */
+  --brand-wash: #ece9fd;
 
-  --ink: #0f1b3d;
-  --ink-2: #1b2a5c;
-  --ink-soft: #5a6070;
+  /* Category accents */
+  --yellow: #ffca55;
+  --yellow-strong: #e8a317;
+  --yellow-wash: #fff3d6;
+  --teal: #22a699;
+  --teal-deep: #137066;
+  --teal-wash: #dff3f0;
+  --coral: #f17b6a;
+  --coral-wash: #fde6e2;
+  --sky: #4aa3df;
+  --sky-wash: #e1f0fb;
+
+  /* Neutrals */
+  --ink: #202333;
+  --ink-2: #3a3e56;
+  --ink-soft: #6a6e85;
   --paper: #ffffff;
-  --stage: #f4f5f7;
-  --line: #dde0e6;
-  --line-strong: #b9bec9;
+  --stage: #f4f6fa;
+  --line: #e8e9f2;
+  --line-strong: #d3d5e6;
 
-  --free: #1d7f55;
-  --free-wash: #e2f3ea;
-  --alert: #8a3b00; /* warnings and errors: deep amber-brown, never red */
-  --alert-wash: #fff4e5;
+  /* States */
+  --free: var(--teal);
+  --free-wash: var(--teal-wash);
+  --alert: #7a5200; /* warnings and conflicts: dark amber text on a yellow wash */
+  --alert-wash: var(--yellow-wash);
 
   --font: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
@@ -28,19 +44,20 @@
   --space-6: 40px;
   --space-7: 72px;
 
-  --radius: 10px;
-  --radius-lg: 16px;
-  --shadow-soft: 0 12px 32px -18px rgba(15, 27, 61, 0.35);
+  --radius: 12px;
+  --radius-lg: 20px;
+  --shadow-soft: 0 10px 28px -16px rgba(32, 35, 51, 0.32);
+  --shadow-card: 0 1px 2px rgba(32, 35, 51, 0.04), 0 10px 24px -18px rgba(32, 35, 51, 0.3);
   --page-width: 1240px;
   --header-h: 72px;
-  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--ink);
+  --focus: 0 0 0 3px var(--paper), 0 0 0 5px var(--brand);
 
-  /* legacy names still used by a few components; they now resolve to the new palette */
-  --amber: var(--orange);
-  --amber-deep: var(--orange-deep);
-  --amber-wash: var(--orange-wash);
+  /* names still used by a few components */
+  --amber: var(--yellow);
+  --amber-deep: var(--alert);
+  --amber-wash: var(--yellow-wash);
   --clash: var(--alert);
-  --clash-wash: var(--alert-wash);
+  --clash-wash: var(--yellow-wash);
   --tape: var(--ink-2);
   --font-display: var(--font);
   --font-body: var(--font);

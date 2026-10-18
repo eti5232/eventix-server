@@ -12,7 +12,7 @@
 .crumbs a:hover {
   color: var(--ink);
   text-decoration: underline;
-  text-decoration-color: var(--orange);
+  text-decoration-color: var(--brand);
   text-decoration-thickness: 2px;
 }
 
@@ -30,7 +30,7 @@
   place-items: center;
   overflow: hidden;
   border-radius: var(--radius-lg);
-  background: radial-gradient(circle at 50% 45%, #ffffff 0%, var(--orange-wash) 100%);
+  background: var(--tone-wash, var(--brand-wash));
   color: var(--ink);
   aspect-ratio: 4 / 3.2;
 }
@@ -53,8 +53,8 @@
   justify-self: start;
   padding: 3px var(--space-3);
   border-radius: 999px;
-  background: var(--orange-wash);
-  color: var(--orange-deep);
+  background: var(--tone-wash, var(--brand-wash));
+  color: var(--ink);
   font-size: 0.85rem;
   font-weight: 700;
 }
