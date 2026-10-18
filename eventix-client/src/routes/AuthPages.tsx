@@ -80,7 +80,13 @@ export function LoginPage() {
         <form onSubmit={submit} className={styles.form} noValidate>
           <Field id="email" label="אימייל" type="email" autoComplete="email" dir="ltr" value={email} onChange={(e) => setEmail(e.target.value)} error={error?.fieldError('email')} required />
           <Field id="password" label="סיסמה" type="password" autoComplete="current-password" dir="ltr" value={password} onChange={(e) => setPassword(e.target.value)} error={error?.fieldError('password')} required />
-          {banner && <ErrorBanner error={banner} title={banner.status === 401 ? 'פרטי ההתחברות שגויים' : undefined} />}
+          {banner && (
+            <ErrorBanner
+              error={banner}
+              title={banner.status === 401 ? 'פרטי ההתחברות שגויים' : undefined}
+              message={banner.status === 401 ? 'האימייל או הסיסמה אינם נכונים. בדקו ונסו שוב.' : undefined}
+            />
+          )}
           <button type="submit" className="btn btn-primary" disabled={busy || !email || !password}>
             {busy ? 'מתחברים…' : 'התחברות'}
           </button>
