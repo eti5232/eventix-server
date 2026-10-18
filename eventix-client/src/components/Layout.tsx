@@ -50,30 +50,33 @@ export function Layout() {
           </nav>
 
           <div className={styles.actions}>
-            {kit.hasRange && (
+            {/* Only customers order equipment (the server rejects admins), so admins get no cart. */}
+            {!isAdmin && kit.hasRange && (
               <button type="button" className={styles.dates} onClick={() => kit.setDrawerOpen(true)}>
                 <span className={styles.datesLabel}>תאריכי האירוע</span>
                 <span className="num">{formatRange(kit.start!, kit.end!)}</span>
               </button>
             )}
 
-            <button
-              type="button"
-              className={styles.cart}
-              onClick={() => kit.setDrawerOpen(true)}
-              aria-label={`ההזמנה שלי, ${kit.unitCount} פריטים`}
-            >
-              <svg viewBox="0 0 24 24" className={styles.cartIcon} aria-hidden="true">
-                <path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.1L20 8H6.2" />
-                <circle cx="9.5" cy="19.2" r="1.3" />
-                <circle cx="16.5" cy="19.2" r="1.3" />
-              </svg>
-              <span className={styles.cartText}>ההזמנה שלי</span>
-              {/* The key restarts the single animation each time something is added. */}
-              <span key={kit.addedTick} className={`${styles.count} ${kit.addedTick > 0 ? styles.bump : ''} num`}>
-                {kit.unitCount}
-              </span>
-            </button>
+            {!isAdmin && (
+              <button
+                type="button"
+                className={styles.cart}
+                onClick={() => kit.setDrawerOpen(true)}
+                aria-label={`ההזמנה שלי, ${kit.unitCount} פריטים`}
+              >
+                <svg viewBox="0 0 24 24" className={styles.cartIcon} aria-hidden="true">
+                  <path d="M3 4h2.2l2.1 10.2a1.5 1.5 0 0 0 1.5 1.2h8.2a1.5 1.5 0 0 0 1.5-1.1L20 8H6.2" />
+                  <circle cx="9.5" cy="19.2" r="1.3" />
+                  <circle cx="16.5" cy="19.2" r="1.3" />
+                </svg>
+                <span className={styles.cartText}>ההזמנה שלי</span>
+                {/* The key restarts the single animation each time something is added. */}
+                <span key={kit.addedTick} className={`${styles.count} ${kit.addedTick > 0 ? styles.bump : ''} num`}>
+                  {kit.unitCount}
+                </span>
+              </button>
+            )}
 
             {user ? (
               <UserMenu

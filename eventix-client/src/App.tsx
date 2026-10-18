@@ -45,11 +45,12 @@ export default function App() {
                     <Route path="register" element={<RegisterPage />} />
 
                     <Route element={<RequireAuth />}>
-                      <Route path="checkout" element={<CheckoutPage />} />
                       <Route path="reservations/:id" element={<ReservationPage />} />
                     </Route>
 
+                    {/* Only customers order equipment, so checkout is closed to admins up front (the server enforces it too). */}
                     <Route element={<RequireRole role="Producer" />}>
+                      <Route path="checkout" element={<CheckoutPage />} />
                       <Route path="reservations" element={<MyReservationsPage />} />
                     </Route>
 

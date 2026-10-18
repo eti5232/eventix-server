@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useAuth } from '../auth/AuthContext'
 import { useKit } from '../kit/KitContext'
 import { useToast } from '../../components/ui/Toast'
 import type { Equipment } from '../../types'
@@ -12,6 +13,7 @@ interface AddToKitProps {
 /** Quantity picker limited to what is free, and the add button (disabled with a reason when it cannot work). */
 export function AddToKit({ equipment, minAvailable }: AddToKitProps) {
   const kit = useKit()
+  const { isAdmin } = useAuth()
   const toast = useToast()
   const [quantity, setQuantity] = useState(1)
 
@@ -20,7 +22,8 @@ export function AddToKit({ equipment, minAvailable }: AddToKitProps) {
   const chosen = Math.min(quantity, Math.max(1, room))
 
   let reason: string | null = null
-  if (!kit.hasRange) reason = 'בחרו תאריכים כדי להוסיף להזמנה'
+  if (isAdmin) reason = 'חשבון מנהל אינו מזמין ציוד'
+  else if (!kit.hasRange) reason = 'בחרו תאריכים כדי להוסיף להזמנה'
   else if (minAvailable === undefined) reason = 'בודקים זמינות…'
   else if (minAvailable === 0) reason = 'הפריט תפוס בתאריכים שנבחרו'
   else if (room === 0) reason = 'הוספתם להזמנה את כל הכמות הפנויה'
