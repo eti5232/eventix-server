@@ -19,6 +19,7 @@ export function Layout() {
         דילוג לתוכן
       </a>
       <header className={styles.header}>
+        <div className={styles.stripe} aria-hidden="true" />
         <div className={styles.bar}>
           <Link to="/" className={styles.logo} aria-label="Eventix, דף הבית">
             <img src="/brand/eventix-logo.png" alt="Eventix" width={163} height={56} />

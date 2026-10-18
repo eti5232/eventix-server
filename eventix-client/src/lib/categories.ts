@@ -21,11 +21,12 @@ const LOOKS: Record<string, CategoryLook> = {
 }
 
 // Soft background and strong accent for each tone (the strong color is used for the icon detail).
-const TONES: Record<Tone, { wash: string; strong: string }> = {
-  yellow: { wash: 'var(--yellow-wash)', strong: 'var(--yellow-strong)' },
-  teal: { wash: 'var(--teal-wash)', strong: 'var(--teal)' },
-  coral: { wash: 'var(--coral-wash)', strong: 'var(--coral)' },
-  brand: { wash: 'var(--brand-wash)', strong: 'var(--brand)' },
+// wash: soft background · strong: icon detail · solid + on: filled pill or dot and the readable text color on it.
+const TONES: Record<Tone, { wash: string; strong: string; solid: string; on: string }> = {
+  yellow: { wash: 'var(--yellow-wash)', strong: 'var(--yellow-strong)', solid: 'var(--yellow)', on: 'var(--ink)' },
+  teal: { wash: 'var(--teal-wash)', strong: 'var(--teal)', solid: 'var(--teal)', on: 'var(--ink)' },
+  coral: { wash: 'var(--coral-wash)', strong: 'var(--coral)', solid: 'var(--coral)', on: 'var(--ink)' },
+  brand: { wash: 'var(--brand-wash)', strong: 'var(--brand)', solid: 'var(--brand)', on: '#fff' },
 }
 
 export function categoryLook(name: string): CategoryLook {
@@ -35,5 +36,10 @@ export function categoryLook(name: string): CategoryLook {
 /** CSS variables (`--tone-wash`, `--icon-accent`) to put on the element that holds a category's icon. */
 export function categoryTone(name: string): CSSProperties {
   const tone = TONES[categoryLook(name).tone]
-  return { ['--tone-wash' as string]: tone.wash, ['--icon-accent' as string]: tone.strong }
+  return {
+    ['--tone-wash' as string]: tone.wash,
+    ['--icon-accent' as string]: tone.strong,
+    ['--tone-solid' as string]: tone.solid,
+    ['--tone-on' as string]: tone.on,
+  }
 }

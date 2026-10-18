@@ -4,7 +4,7 @@
 
 /* HERO: bright, copy on the start (right) side and a colorful collage on the other */
 .hero {
-  background: var(--stage);
+  background: linear-gradient(180deg, var(--brand-wash) 0%, var(--stage) 70%);
 }
 .heroInner {
   display: grid;
@@ -33,7 +33,7 @@
   letter-spacing: -0.03em;
 }
 .headline mark {
-  background: none;
+  background: linear-gradient(transparent 64%, var(--yellow) 64% 92%, transparent 92%);
   color: var(--brand);
 }
 .lead {
@@ -219,6 +219,7 @@
 
 /* HOW IT WORKS */
 .how {
+  background: var(--stage);
   padding: var(--space-6) var(--space-4) var(--space-7);
 }
 .howInner {

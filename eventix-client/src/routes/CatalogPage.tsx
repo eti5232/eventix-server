@@ -8,7 +8,7 @@ import { ErrorBanner } from '../components/ui/ErrorBanner'
 import { Pagination } from '../components/ui/Pagination'
 import { EquipmentCard } from '../features/catalog/EquipmentCard'
 import { useKit } from '../features/kit/KitContext'
-import { categoryLook } from '../lib/categories'
+import { categoryLook, categoryTone } from '../lib/categories'
 import { formatRange } from '../lib/dates'
 import styles from './CatalogPage.module.css'
 
@@ -143,8 +143,10 @@ export function CatalogPage() {
                 type="button"
                 className="chip"
                 aria-pressed={categoryId === c.id}
+                style={categoryTone(c.name)}
                 onClick={() => update({ category: String(c.id) })}
               >
+                <span className="chip-dot" aria-hidden="true" />
                 {categoryLook(c.name).label}
               </button>
             ))}

@@ -339,3 +339,13 @@ table.table {
   background: var(--coral-wash);
   color: #b8402f;
 }
+
+/* Small colored dot in front of a category name */
+.chip-dot {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-inline-end: var(--space-2);
+  border-radius: 50%;
+  background: var(--tone-solid, var(--brand));
+}

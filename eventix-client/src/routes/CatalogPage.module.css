@@ -1,5 +1,5 @@
 .intro {
-  background: var(--stage);
+  background: linear-gradient(180deg, var(--brand-wash) 0%, var(--stage) 100%);
   color: var(--ink);
 }
 .introInner {
