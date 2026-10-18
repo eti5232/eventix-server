@@ -36,7 +36,7 @@ services:
     staticPublishPath: ./eventix-client/dist
     envVars:
       - key: NODE_VERSION
-        value: 22
+        value: "22"
       # Baked into the client at build time: where the API lives.
       - key: VITE_API_URL
         value: https://eventix-api.onrender.com
