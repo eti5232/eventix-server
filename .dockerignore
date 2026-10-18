@@ -1,0 +1,17 @@
+# Keeps the Docker build context small and free of local files and secrets.
+**/bin/
+**/obj/
+**/logs/
+**/node_modules/
+**/dist/
+.git/
+.vs/
+.idea/
+eventix-client/
+logo/
+docs/
+Eventix.Tests/
+*.md
+CLAUDE.md
+**/*.user
+**/appsettings.Development.json

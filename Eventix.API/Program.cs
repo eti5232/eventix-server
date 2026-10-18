@@ -36,6 +36,7 @@ try
     builder.Services.AddEndpointsApiExplorer();
     builder.Services.AddSwaggerWithJwt();
     builder.Services.AddJwtAuthentication(builder.Configuration);
+    builder.Services.AddClientCors(builder.Configuration);
     builder.Services.AddApplication();
     builder.Services.AddInfrastructure(builder.Configuration);
 
@@ -67,6 +68,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// CORS before authentication, so the browser's preflight (OPTIONS) request is answered without a token.
+app.UseClientCors();
 
 // Authentication (who are you?) must come before authorization (what may you do?).
 app.UseAuthentication();

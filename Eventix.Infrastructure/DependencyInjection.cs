@@ -20,7 +20,8 @@ public static class DependencyInjection
             ?? throw new InvalidOperationException(
                 "Connection string 'Default' is missing. Set it with user-secrets or an environment variable.");
 
-        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
+        // Accepts both the Npgsql form and the postgres:// URL that hosting platforms provide.
+        services.AddDbContext<AppDbContext>(options => options.UseNpgsql(PostgresConnectionString.Normalize(connectionString)));
 
         // Scoped, like the DbContext they depend on: one instance per HTTP request.
         services.AddScoped<IUnitOfWork, UnitOfWork>();
