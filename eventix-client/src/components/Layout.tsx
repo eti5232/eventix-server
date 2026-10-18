@@ -108,6 +108,7 @@ export function Layout() {
             {!user && <Link to="/register">פתיחת חשבון</Link>}
           </nav>
         </div>
+        <p className={styles.copyright}>© 2026 Eventix · פרויקט גמר בקורס .NET</p>
       </footer>
 
       <KitDrawer />

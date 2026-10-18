@@ -1,9 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
-import { categoriesApi, equipmentApi } from '../api/endpoints'
+import { categoriesApi } from '../api/endpoints'
 import { CategoryIcon } from '../components/CategoryIcon'
 import { categoryLook, categoryTone } from '../lib/categories'
-import { formatMoney } from '../lib/dates'
 import styles from './HomePage.module.css'
 
 const FACTS = ['זמינות מתעדכנת לפי יום', 'השכרה של עד 7 ימים ברצף', 'ביטול עד יום לפני האירוע']
@@ -16,12 +15,6 @@ const STEPS = [
 
 export function HomePage() {
   const categories = useQuery({ queryKey: ['categories'], queryFn: categoriesApi.list, staleTime: 5 * 60_000 })
-  // A small real sample of the catalog (also gives the total item count for the numbers strip).
-  const sample = useQuery({
-    queryKey: ['equipment', 'home'],
-    queryFn: () => equipmentApi.list({ pageSize: 4, sortBy: 'Price', sortDir: 'Desc' }),
-    staleTime: 5 * 60_000,
-  })
 
   return (
     <div className={styles.home}>
@@ -70,28 +63,6 @@ export function HomePage() {
         </div>
       </section>
 
-      {/* Real numbers from the catalog, in soft colored chips. */}
-      <section className={styles.stats} aria-label="הקטלוג במספרים">
-        <ul className={styles.statsInner}>
-          <li style={categoryTone('Speakers')}>
-            <strong className="num">{sample.data?.totalCount ?? '—'}</strong>
-            <span>פריטי ציוד בקטלוג</span>
-          </li>
-          <li style={categoryTone('Microphones')}>
-            <strong className="num">{categories.data?.length ?? '—'}</strong>
-            <span>קטגוריות</span>
-          </li>
-          <li style={categoryTone('Lighting')}>
-            <strong className="num">7</strong>
-            <span>ימי השכרה לכל היותר</span>
-          </li>
-          <li style={categoryTone('Projectors')}>
-            <strong>יום לפני</strong>
-            <span>האירוע: עדיין אפשר לבטל</span>
-          </li>
-        </ul>
-      </section>
-
       <section className={styles.categories} aria-labelledby="cats">
         <div className={styles.sectionHead}>
           <h2 id="cats">קטגוריות ציוד</h2>
@@ -126,39 +97,25 @@ export function HomePage() {
         </div>
       </section>
 
-      {sample.data && sample.data.items.length > 0 && (
-        <section className={styles.featured} aria-labelledby="featured">
-          <div className={styles.featuredInner}>
-            <div className={styles.sectionHead}>
-              <h2 id="featured">מהקטלוג</h2>
-              <Link to="/equipment" className={styles.allLink}>
-                לכל הציוד ←
-              </Link>
-            </div>
-            <ul className={styles.products}>
-              {sample.data.items.map((item) => {
-                const look = categoryLook(item.categoryName)
-                return (
-                  <li key={item.id}>
-                    <Link to={`/equipment/${item.id}`} className={styles.product} style={categoryTone(item.categoryName)}>
-                      <span className={styles.productMedia}>
-                        <CategoryIcon name={item.categoryName} className={styles.productIcon} />
-                        <span className={styles.pill}>{look.label}</span>
-                      </span>
-                      <span className={styles.productBody}>
-                        <strong>{item.name}</strong>
-                        <span className={styles.price}>
-                          <b className="num">{formatMoney(item.dailyPrice)}</b> ליום
-                        </span>
-                      </span>
-                    </Link>
-                  </li>
-                )
-              })}
-            </ul>
+      <section className={styles.about} aria-labelledby="about">
+        <div className={styles.aboutInner}>
+          <div className={styles.aboutText}>
+            <h2 id="about">אודות Eventix</h2>
+            <p>
+              Eventix היא מערכת להשכרת ציוד הפקה לאירועים: מערכות קול, תאורה, הקרנה ובמות. בוחרים את תאריכי האירוע,
+              רואים מה פנוי בכל יום, ומזמינים את כל הציוד בהזמנה אחת.
+            </p>
+            <p>
+              הציוד מוגבל בכמות, ולכן הזמינות נבדקת בכל הזמנה מחדש, והזמנה נשמרת רק אם כל הפריטים פנויים בכל ימי האירוע.
+            </p>
           </div>
-        </section>
-      )}
+          <ul className={styles.aboutList}>
+            <li style={categoryTone('Speakers')}>זמינות מעודכנת לפי יום</li>
+            <li style={categoryTone('Microphones')}>הזמנה אחת לכל הציוד</li>
+            <li style={categoryTone('Lighting')}>ביטול עד יום לפני האירוע</li>
+          </ul>
+        </div>
+      </section>
 
       <section id="how" className={styles.how} aria-labelledby="how-title">
         <div className={styles.howInner}>

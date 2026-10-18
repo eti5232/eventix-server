@@ -256,3 +256,12 @@
   height: 4px;
   background: linear-gradient(90deg, var(--yellow) 0 25%, var(--teal) 25% 50%, var(--coral) 50% 75%, var(--brand) 75% 100%);
 }
+
+.copyright {
+  max-width: var(--page-width);
+  margin: var(--space-5) auto 0;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+  font-size: 0.85rem;
+  text-align: center;
+}
