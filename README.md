@@ -136,7 +136,7 @@ dotnet user-secrets set "Jwt:Key" "<מחרוזת אקראית של 32 תווים
 dotnet run --launch-profile http
 ```
 
-בהפעלה הראשונה המערכת **יוצרת את בסיס הנתונים בעצמה**, מריצה את כל ה-migrations ומוסיפה נתוני דמו (5 קטגוריות, 15 פריטי ציוד ו-3 משתמשים). אין צורך בשום פעולה ידנית בבסיס הנתונים. ה-Swagger נמצא ב-`http://localhost:5139/swagger` (כפתור Authorize לשם הדבקת ה-token).
+בהפעלה הראשונה המערכת **יוצרת את בסיס הנתונים בעצמה**, מריצה את כל ה-migrations ומוסיפה נתוני דמו (5 קטגוריות, 15 פריטי ציוד ו-3 משתמשים). אין צורך בשום פעולה ידנית בבסיס הנתונים. ה-Swagger נמצא ב-`http://localhost:5139/swagger` (ובאתר החי: `https://eventix-api-ifp2.onrender.com/swagger`) (כפתור Authorize לשם הדבקת ה-token).
 
 **4. הלקוח (React) נמצא בריפו נפרד:** https://github.com/eti5232/eventix-client
 
