@@ -1,4 +1,5 @@
-# Render Blueprint: creates the database, the API (Docker) and the client (static site) from this repository.
+# Render Blueprint: creates the database and the API (Docker) from this repository.
+# The client lives in its own repository (eti5232/eventix-client) and is deployed as a separate static site.
 # The API name was already taken on Render, so its real address has a suffix (eventix-api-ifp2).
 # If an address ever changes, update VITE_API_URL (client) and Cors__AllowedOrigins__0 (API) to match.
 databases:
@@ -28,20 +29,3 @@ services:
       # The address of the client below, so the browser is allowed to call this API.
       - key: Cors__AllowedOrigins__0
         value: https://eventix-client.onrender.com
-
-  - type: web
-    name: eventix-client
-    runtime: static
-    buildCommand: cd eventix-client && npm ci && npm run build
-    staticPublishPath: ./eventix-client/dist
-    envVars:
-      - key: NODE_VERSION
-        value: "22"
-      # Baked into the client at build time: where the API lives.
-      - key: VITE_API_URL
-        value: https://eventix-api-ifp2.onrender.com
-    routes:
-      # Single-page app: every path serves index.html, so deep links and refresh work.
-      - type: rewrite
-        source: /*
-        destination: /index.html
