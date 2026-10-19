@@ -73,17 +73,6 @@ API ───────────────► Application ─────
 - **כל התלויות מוזרקות דרך ה-constructor** (Dependency Injection), והרישום נעשה במקום אחד לכל שכבה: `AddApplication()` ו-`AddInfrastructure()`.
 - **משך החיים (lifetime) נבחר במודע:** `DbContext`, המאגרים והשירותים הם `Scoped`, כלומר מופע אחד לכל בקשת HTTP. עזרים חסרי מצב (`BCryptPasswordHasher`, `JwtTokenGenerator`, שעון) הם `Singleton`. אסור ש-Singleton יחזיק `DbContext`: ה-`DbContext` אינו בטוח לשימוש מכמה בקשות במקביל, והמופע היחיד היה חי כל חיי האפליקציה.
 
-### היחס למבנה שהמורה הציגה
-
-| מבנה בדרישות המורה | המקביל אצלנו |
-|---|---|
-| `Core` (ישויות, ממשקים, DTOs, enums) | `Domain` (ישויות, enums) ו-`Application` (ממשקים, DTOs) |
-| `Data` (DbContext, מאגרים, migrations) | `Infrastructure` |
-| `Service` (לוגיקה עסקית) | `Application` (השירותים) |
-| `API` | `API` |
-
-הדרישה המרכזית נשמרת: **`Core`/`Domain` אינו תלוי בשום דבר חיצוני** (אין EF Core בשכבות הפנימיות), ואף Controller אינו מזריק `DbContext`.
-
 ## המשאב המוגבל והתחרות עליו
 
 **המשאב המוגבל** הוא **הכמות הפנויה של פריט ציוד ביום מסוים**. לכל פריט יש `TotalQuantity` (למשל 2 מקרנים), והמלאי נשמר בטבלת `DailyStock`: שורה לכל זוג (פריט, יום) עם `ReservedQuantity`. כמות פנויה ביום = `TotalQuantity - ReservedQuantity`.
